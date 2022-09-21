@@ -11,18 +11,20 @@ const mouse = {
 canvas.addEventListener("mousemove", ({ x, y }) => {
 	mouse.x = x;
 	mouse.y = y;
-	console.log(x, y);
+	for (let index = 0; index < 10; index++) {
+		particlesArray.push(new Particles());
+	}
 });
 
 class Particles {
 	constructor() {
-		// this.x = mouse.x;
-		// this.y = mouse.y;
+		this.x = mouse.x;
+		this.y = mouse.y;
 
-		this.x = Math.random() * canvas.width;
-		this.y = Math.random() * canvas.height;
+		// this.x = Math.random() * canvas.width;
+		// this.y = Math.random() * canvas.height;
 
-		this.size = Math.random() * 5 + 1;
+		this.size = Math.random() * 15 + 1;
 		this.speedX = Math.random() * 3 - 1.5;
 		this.speedY = Math.random() * 3 - 1.5;
 	}
@@ -37,12 +39,7 @@ class Particles {
 	update() {
 		this.x += this.speedX;
 		this.y += this.speedY;
-	}
-}
-//Genera 100 particulas
-function init() {
-	for (let i = 0; i < 100; i++) {
-		particlesArray.push(new Particles());
+		if (this.size > 0.2) this.size -= 0.1;
 	}
 }
 
@@ -58,9 +55,13 @@ function handdleParticles() {
 
 		p.draw();
 		p.update();
+		if (p.size <= 0.3) {
+			const remove = particlesArray.splice(i, 1);
+			console.log(particlesArray.length);
+			i--;
+		}
 	}
 }
 
-init();
 console.log(particlesArray);
 animate();
