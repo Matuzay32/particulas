@@ -24,28 +24,27 @@ class Particles {
 		this.speedY = Math.random() * 5 - 1.5;
 	}
 
+	update() {
+		this.x += this.speedX;
+		this.y += this.speedY;
+		if (this.size > 0.2) this.size -= 0.1;
+	}
 	draw() {
 		ctx.fillStyle = "white";
 		ctx.beginPath();
 		ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
 		ctx.fill();
 	}
-	update() {
-		this.x += this.speedX;
-		this.x += this.speedY;
-	}
 }
 
 function handdleParticles() {
 	for (let i = 0; i < particlesArray.length; i++) {
 		const particle = particlesArray[i];
-		particle.update();
 		particle.draw();
+		particle.update();
 
-		if (particle.size >= 0.3) {
+		if (particle.size <= 0.3) {
 			particlesArray.splice(i, 1);
-			console.log(particlesArray);
-			i--;
 		}
 	}
 }
