@@ -8,9 +8,20 @@ const mouse = {
 	y: undefined,
 };
 
-canvas.addEventListener("mousemove", ({ x, y }) => {
+// canvas.addEventListener("mousemove", ({ x, y }) => {
+// 	mouse.x = x;
+// 	mouse.y = y;
+// 	console.log(mouse.x);
+// 	console.log(mouse.y);
+// 	for (let index = 0; index < 10; index++) {
+// 		particlesArray.push(new Particles());
+// 	}
+// });
+canvas.addEventListener("click", ({ x, y }) => {
 	mouse.x = x;
 	mouse.y = y;
+	console.log(mouse.x);
+	console.log(mouse.y);
 	for (let index = 0; index < 10; index++) {
 		particlesArray.push(new Particles());
 	}
@@ -57,11 +68,9 @@ function handdleParticles() {
 		p.update();
 		if (p.size <= 0.3) {
 			const remove = particlesArray.splice(i, 1);
-			console.log(particlesArray.length);
 			i--;
 		}
 	}
 }
 
-console.log(particlesArray);
 animate();
